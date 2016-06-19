@@ -1,0 +1,29 @@
+.navbar {
+	margin-bottom: 25px;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.navbar .container-fluid {
+	padding: 0;
+}
+
+.nav li a {
+	font-weight: 600;
+}
+
+.navbar, .panel-body {
+	background-color: rgb(250,250,250);
+}
+
+.panel-heading {
+	padding: 5px;
+}
+
+.panel-heading h3 {
+	margin: 5px;
+}
+
+.panel {
+	box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+	border-radius: 0;
+}
