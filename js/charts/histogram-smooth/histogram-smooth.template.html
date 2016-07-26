@@ -4,6 +4,10 @@
 		<select class="form-control" ng-model="xMetric" ng-options="metric.value as metric.display for metric in metrics"></select>
 	</div>
 	<div class="form-group">
+		<label>Bins</label>
+		<input class="form-control" type="number" min="1" max="40" step="1" ng-model="bins">
+	</div>
+	<div class="form-group">
 		<label>Average</label>
 		<input type="checkbox" ng-model="plotAvg">
 	</div>

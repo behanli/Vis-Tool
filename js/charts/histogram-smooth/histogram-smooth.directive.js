@@ -8,6 +8,7 @@ angular.module('charts')
 		// Init
 		$scope.init = function() {
 			$scope.xMetric = $scope.metrics[0].value;
+			$scope.bins = 10;
 		}
 
 		$scope.init();
@@ -54,6 +55,7 @@ angular.module('charts')
 
 		// Watches
 		scope.$watch('data', render);
+		scope.$watch('bins', render);
 		scope.$watch('xMetric', render);
 		scope.$watch('plotAvg', overlayAvg);
 		scope.$watch( function() {
@@ -111,7 +113,7 @@ angular.module('charts')
 					.value( function(d) {
 						return d[scope.xMetric];
 					})
-					.bins(10) // Adjust
+					.bins(scope.bins) // Adjust
 					.frequency(false) // Relative
 					(data);
 
