@@ -13,7 +13,7 @@ angular.module('visApp' , [
   'colourGenerator',
   'navigation',
   'charts',
-  'pngModal',
+  'exportModal',
   'jsonModal'
 
 ]);

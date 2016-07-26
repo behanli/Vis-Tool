@@ -1,6 +1,6 @@
 // Define 'png-modal' directive
-angular.module('pngModal')
-.directive('pngModal', ['$http', function($http) { 
+angular.module('exportModal')
+.directive('exportModal', ['$http', function($http) { 
 
 	var controller = ['$scope', function($scope) { 
 
@@ -87,7 +87,7 @@ angular.module('pngModal')
 
 	return {
 		restrict: 'E',
-		templateUrl: 'js/png-modal/png-modal.template.html',
+		templateUrl: 'js/export-modal/export-modal.template.html',
 		controller: controller,
 		link: link
 	}
