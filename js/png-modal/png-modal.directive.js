@@ -1,42 +1,94 @@
 // Define 'png-modal' directive
 angular.module('pngModal')
-.directive('pngModal', [ function() { 
+.directive('pngModal', ['$http', function($http) { 
+
+	var controller = ['$scope', function($scope) { 
+
+		// Default params
+		$scope.init = function() {
+			$scope.downloadOptions = ['.png', '.svg'];
+			$scope.downloadAs = $scope.downloadOptions[0];
+			$scope.saveAs = 'chart';
+		}
+
+	}];
 
 	var link = function(scope, elem, attrs) {
 	
-		/*scope.svgToPng = function() {
+		scope.export = function() {
 
-			// Get chart elem
-			var chart = document.getElementById(attrs.chartId);
+			/* Get svg.css to create inline style;
+				export functionality nested within promise */
+			$http.get('css/svg.min.css').then( function(res) {
 
-			// Serialize chart (svg) html
-			var html = new XMLSerializer().serializeToString(chart);
+				var style = res.data; // svg css styling
+				var url;
 
-			var imgsrc = 'data:image/svg+xml;base64,'+ btoa(html);
+				// Get chart elem & proportions for hidden canvas
+				var chart = document.getElementById(attrs.chartId),
+					width = chart.getBoundingClientRect().width,
+					height = chart.getBoundingClientRect().height;
 
-			// Get canvas and draw image
-			var canvas = document.querySelector('canvas'),
-					context = canvas.getContext('2d');
+				// Serialize chart (svg) html
+				var html = new XMLSerializer().serializeToString(chart);
 
-			var image = new Image;
-			image.src = imgsrc;
+				// Nest style within <svg></svg>
+				var endIndex = html.indexOf('</svg>');
+				html = html.slice(0, endIndex) + "<style>" + style + "</style>" + html.slice(endIndex, html.length);
 
-			// On image load
-			image.onload = function() {
-				context.drawImage(image, 0, 0);
+				if(scope.downloadAs == '.png') {
 
-				// TODO: Download on click
+					var imgsrc = 'data:image/svg+xml;base64,'+ btoa(html);
 
-			}
+					// Get canvas and draw image (hidden)
+					var canvas = document.querySelector('canvas');
+					canvas.setAttribute("width", width);
+					canvas.setAttribute("height", height + 20);
 
-			
-		}*/
+					var	context = canvas.getContext('2d');
+
+					var image = new Image;
+					image.src = imgsrc;
+
+					// On image load
+					image.onload = function() {
+						
+						context.drawImage(image, 0, 0);
+
+						url = canvas.toDataURL("image/png");
+
+						// Set hidden <a> tag attrs
+						var anchor = document.getElementById('downloadChart');
+
+						anchor.setAttribute("href", url);
+						anchor.setAttribute("download", scope.saveAs + scope.downloadAs);
+						anchor.click();
+
+					}
+
+				} else { // svg
+
+					url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(html);
+
+					// Set hidden <a> tag attrs
+					var anchor = document.getElementById('downloadChart');
+
+					anchor.setAttribute("href", url);
+					anchor.setAttribute("download", scope.saveAs + scope.downloadAs);
+					anchor.click();
+
+				} 
+
+			});
+
+		}
 	
 	}
 
 	return {
 		restrict: 'E',
 		templateUrl: 'js/png-modal/png-modal.template.html',
+		controller: controller,
 		link: link
 	}
 

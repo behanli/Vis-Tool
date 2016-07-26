@@ -1,0 +1,58 @@
+/* SVG Elements Only
+	
+	----------------------------------------------------------------------------------
+  NOTE: The minified version of this file is retrieved when exporting charts as PNGs
+		to create an inline <style> tag within the <svg>.
+    When making changes to this file, update the minified version too.
+
+    CSS Minifier: https://cssminifier.com/ 
+  ----------------------------------------------------------------------------------
+
+*/
+
+/* ------------------------------------------------------
+		SVG
+   ------------------------------------------------------*/
+
+svg {
+  background-color: white;
+  border: 0px solid black;
+  margin-top: 10px;
+}
+
+.loading {
+  font-size: 1.5em;
+  fill: #333;
+  text-anchor: middle;
+}
+
+/* ------------------------------------------------------
+		D3 Axes, Lines etc.
+   ------------------------------------------------------*/
+
+.axis text {
+  font: 12px sans-serif;
+  fill: #333;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  stroke-width 3px;
+  shape-rendering: crispEdges;
+}
+
+.line {
+  fill: none;
+  stroke: blue;
+  stroke-width: 1.5px;
+}
+
+.nopath path {
+  display: none;
+}
+
+text.hidden { /* Hide labels depending on the no. of students */
+  display: none;
+}
