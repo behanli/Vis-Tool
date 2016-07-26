@@ -1,0 +1,65 @@
+<!-- Student Page -->
+
+<navigation active="student"></navigation>
+
+<!-- Content -->
+<div class="container-fluid" ng-controller="studentCtrl">
+	<div class="row">
+
+		<!-- Filter -->
+		<div class="col-sm-4" id="filter">
+			<div class="panel panel-default myFilter">
+				<div class="panel-heading">
+					<h3 id="btnFilter">Filter</h3>
+				</div>
+				<div class="panel-body">
+					<form role="form">
+						<div class="form-group">
+							<label>Chart Type</label>
+							<select class="form-control" ng-model="selectedChart" ng-options="chart.display for chart in charts">
+							</select>							
+						</div>
+						<hr>
+						<div class="form-group">
+							<label>Student(s)</label>
+							<input class="form-control student-filter" type="text" placeholder="Filter students ..." ng-model="studentFilter">
+							<select class="form-control" ng-model="selectedStudents" multiple>
+								<option ng-repeat="student in students | filter: studentFilter" value="{{student}}">{{student}}</option>
+							</select>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label>Metric(s)</label>
+							<select class="form-control" ng-model="selectedMetrics" multiple ng-options="metric.display for metric in metrics | orderBy: 'display'">
+							</select>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label>Period</label>	
+							<period-selector period="periodOne" events="events"></period-selector>
+							<period-selector period="periodTwo" events="events"></period-selector>
+						</div>
+						<hr>
+						<span class="pull-left reset" ng-click="reset()">Reset</span>
+						<input type="submit" class="btn btn-primary btn-md pull-right" value="Submit" ng-click="handleSubmit()">
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- Chart(s) -->
+		<div class="col-sm-8" id="visualisation-area">
+			<div class="col-lg-12 chart-panel" ng-if="chartToDisplay">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h3>{{chartToDisplay.display}}</h3></div>
+					<div class="panel-body" ng-switch="chartToDisplay.value">
+						<scatterplot ng-switch-when="scatter" data="data" metrics="metricsToDisplay"></scatterplot>
+						<barchart ng-switch-when="bar" data="data" metrics="metricsToDisplay"></barchart>
+						<histogram ng-switch-when="hist" data="data" metrics="metricsToDisplay"></histogram>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

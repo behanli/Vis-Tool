@@ -1,0 +1,62 @@
+<!-- Group / Cohort Page -->
+
+<!-- Navigation Menu -->
+<navigation active="groups-cohorts"></navigation>
+
+<!-- Content -->
+<div class="container-fluid" ng-controller="groupCohortCtrl">
+	<div class="row">
+
+		<!-- Filter -->
+		<div class="col-sm-4">
+			<div class="panel panel-default myFilter">
+				<div class="panel-heading">
+					<h3>Filter</h3>
+				</div>
+				<div class="panel-body">
+					<form role="form">
+						<div class="form-group">
+							<label>Chart</label>
+							<select class="form-control" ng-model="selectedChart" ng-options="chart.display for chart in charts"></select>
+						</div>
+						<div class="form-group">
+							<label>Group(s) / Cohort(s)</label>
+							<select ng-model="selectedGroupsCohorts" ng-options="groupCohort.value as groupCohort.value group by groupCohort.type for groupCohort in cohorts.concat(groups)" multiple class="form-control"></select>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label>Metric(s)</label>
+							<select class="form-control" ng-model="selectedMetrics" ng-options="metric.display for metric in metrics | orderBy: 'display'" multiple>
+							</select>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label>Period</label>	
+							<period-selector period="periodOne" events="events"></period-selector>
+							<period-selector period="periodTwo" events="events"></period-selector>
+						</div>
+						<hr>
+						<span class="pull-left reset" ng-click="reset()">Reset</span>
+						<input type="submit" class="btn btn-primary btn-md pull-right" value="Submit" ng-click="handleSubmit()">
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- Chart(s) -->
+		<div class="col-sm-8" id="visualisation-area">
+			<div class="col-lg-12 chart-panel" ng-if="chartToDisplay">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h3>{{chartToDisplay.display}}</h3></div>
+					<div class="panel-body" ng-switch="chartToDisplay.value">
+						<scatterplot ng-switch-when="scatter" data="data" metrics="metricsToDisplay"></scatterplot>
+						<barchart ng-switch-when="bar" data="data" metrics="metricsToDisplay"></barchart>
+						<histogram ng-switch-when="hist" data="data" metrics="metricsToDisplay"></histogram>
+						<histogram-smooth ng-switch-when="histSmooth" data="data" metrics="metricsToDisplay"></histogram-smooth>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

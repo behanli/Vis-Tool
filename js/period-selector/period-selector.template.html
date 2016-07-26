@@ -1,0 +1,32 @@
+<!-- period-selector -->
+<div class="input-group picker">
+	
+	<!-- dropdown -->
+	<div class="input-group-btn">
+		 <button type="button" class="btn btn-default dropdown-toggle form-control" 
+             data-toggle="dropdown">
+             	{{period.type}} 
+             <span class = "caret"></span>
+         </button>
+         <ul class="dropdown-menu">
+             <li ng-click="setPeriodType('Date')"><a>Date</a></li>
+             <li ng-click="setPeriodType('Event')"><a>Event</a></li>
+         </ul>
+	</div> <!-- </dropdown -->
+	
+	<!-- date-picker -->
+	<div ng-if="period.type == 'Date'" class="input-group">
+		<input type="text" class="form-control date-picker" uib-datepicker-popup ng-model="period.date" is-open="popup.opened" close-text="Close"/>
+		<span class="input-group-btn">
+			<button type="button" class="btn btn-default form-control" ng-click="togglePopup()"><i class="glyphicon glyphicon-calendar"></i></button>
+		</span>
+	</div> <!-- </date-picker> -->
+
+	<!-- event-picker -->
+	<select ng-if="period.type == 'Event'" class="form-control" ng-model="period.event" ng-options="event for event in events">
+	</select> <!-- </event-picker> -->
+
+</div> <!-- </period-selector> -->
+
+
+	

@@ -1,0 +1,26 @@
+<form class="form-inline">
+	<div class="form-group">
+		<label>Select</label>
+		<select class="form-control" ng-model="groupcohort" ng-options="groupcohort for groupcohort in groupCohorts"></select>
+	</div>
+	<div class="form-group">
+		<label>Metric</label>
+		<select class="form-control" ng-model="xMetric" ng-options="metric.value as metric.display for metric in metrics"></select>
+	</div>
+	<div class="form-group">
+		<label>Frequency</label>
+		<select class="form-control" ng-model="frequency" ng-options="frequency for frequency in frequencyType"></select>
+	</div>
+	<div class="form-group">
+		<label>Bins</label>
+		<input class="form-control" type="number" min="1" max="40" step="1" ng-model="bins">
+	</div>
+	<div class="form-group">
+		<png-modal></png-modal>
+	</div>
+	<div class="form-group">
+		<json-modal data="data"></json-modal>
+	</div>
+</form>
+<hr>
+<svg id="chart"></svg>

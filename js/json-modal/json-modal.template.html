@@ -1,0 +1,38 @@
+<!-- Trigger the modal with a button -->
+<button type="button" class="btn btn-default form-control" ng-click="init()" data-toggle="modal" data-target="#jsonModal">JSON</button>
+
+<!-- Modal -->
+<div id="jsonModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">JSON</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-inline">
+          <div class="form-group">
+            <label>Nest by</label>
+            <select class="form-control" ng-model="nestBy" ng-options="nest for nest in nests"></select>
+          </div> 
+        </form>
+        <pre>{{json}}</pre>
+      </div>
+      <div class="modal-footer">
+        <form class="form-inline">
+          <div class="form-group pull-left">
+            <input type="text" class="form-control" ng-model="saveAs">
+            <label>.json</label>
+          </div>
+        </form>
+        <button type="button" class="btn btn-primary" ng-click="saveJSON()">Save</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Hidden anchor used to download json -->
+<a id="downloadJSON" style="display:none"></a>

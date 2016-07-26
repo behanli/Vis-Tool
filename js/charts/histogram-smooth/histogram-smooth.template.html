@@ -1,0 +1,18 @@
+<form class="form-inline">
+	<div class="form-group">
+		<label>Metric</label>
+		<select class="form-control" ng-model="xMetric" ng-options="metric.value as metric.display for metric in metrics"></select>
+	</div>
+	<div class="form-group">
+		<label>Average</label>
+		<input type="checkbox" ng-model="plotAvg">
+	</div>
+	<div class="form-group">
+		<png-modal></png-modal>
+	</div>
+	<div class="form-group">
+		<json-modal data="data"></json-modal>
+	</div>
+</form>
+<hr>
+<svg id="chart"></svg>

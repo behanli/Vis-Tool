@@ -1,0 +1,26 @@
+<!-- Trigger the modal with a button -->
+<button type="button" class="btn btn-default form-control" ng-click="svgToPng()" data-toggle="modal" data-target="#pngModal">PNG</button>
+
+<!-- Modal -->
+<div id="pngModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <canvas></canvas>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default">Save</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Hidden anchor used to download png -->
+<a id="downloadPNG" style="display:none"></a>
