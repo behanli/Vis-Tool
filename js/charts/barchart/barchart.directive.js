@@ -263,8 +263,6 @@ angular.module('charts')
 					return d[scope.yMetric];
 			});
 
-			console.log(avg);
-
 			// Plot average
 			g.append('rect')
 				.attr("width", innerWidth)

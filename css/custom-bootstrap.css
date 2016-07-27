@@ -56,10 +56,10 @@ body {
 .panel-heading h3, .panel-heading h4 {
 	margin: 5px;
 }
-
+ 
 .panel {
 	box-shadow: 0 1px 1px rgba(0,0,0,0.2);
-	border-radius: 0;
+	border-radius: 4px;
 }
 
 a:hover {
@@ -114,19 +114,20 @@ form .reset:hover {
 }
 
 /* ------------------------------------------------------
-    Charts 
+    Vis Area 
    ------------------------------------------------------*/
 
-#visualisation-area {
+#vis-area {
   padding: 0;
 }
 
-.chart-panel {
+.vis-panel {
   padding: 0 5px 0 5px;
 }
 
-.chart-panel .panel {
-  margin-bottom: 15px;
+h4[data-toggle="collapse"]:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 /* ------------------------------------------------------
