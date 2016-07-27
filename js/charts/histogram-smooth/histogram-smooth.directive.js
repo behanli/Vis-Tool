@@ -23,7 +23,7 @@ angular.module('charts')
 	var link = function(scope, elem, attrs) {
 
 		// Init
-		var margin = {top: 45, right: 20, bottom: 45, left: 65},
+		var margin = {top: 40, right: 20, bottom: 45, left: 65},
 			width = '100%',
 			height = config.CHART_HEIGHT,
 			innerWidth,
