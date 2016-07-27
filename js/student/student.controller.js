@@ -15,6 +15,8 @@ angular.module('student')
 		// Populate students & events on course selection
 		$scope.$watch('selectedCourse', function() {
 
+			if(!$scope.selectedCourse) return;
+
 			// Populate students select
 			apiRequest.students($scope.selectedCourse).then( function(response) {
 				$scope.students = response.data;

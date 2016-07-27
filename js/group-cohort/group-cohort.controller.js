@@ -15,6 +15,8 @@ angular.module('groupCohort')
 		// Populate groups / cohorts & events on course selection
 		$scope.$watch('selectedCourse', function() {
 
+			if(!$scope.selectedCourse) return;
+
 			// Populate groups-cohorts select
 			apiRequest.groups($scope.selectedCourse).then( function(response) { // groups
 				
