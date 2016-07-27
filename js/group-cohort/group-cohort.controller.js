@@ -6,6 +6,45 @@ angular.module('groupCohort')
 		// Init properties
 		$scope.events = [];
 
+		// Populate courses
+		apiRequest.courses().then( function(response) {
+			$scope.courses = response.data;
+			$scope.selectedCourse = $scope.courses[0]; // Default to first course
+		});
+
+		// Populate groups / cohorts & events on course selection
+		$scope.$watch('selectedCourse', function() {
+
+			// Populate groups-cohorts select
+			apiRequest.groups($scope.selectedCourse).then( function(response) { // groups
+				
+				$scope.groups = response.data.map( function(currentValue) {
+					var obj = {};
+					obj.value = currentValue;
+					obj.type = 'group';
+					return obj;
+				});
+
+			});
+
+			apiRequest.cohorts($scope.selectedCourse).then(function( response) { // cohorts
+				
+				$scope.cohorts = response.data.map( function(currentValue) {
+					var obj = {};
+					obj.value = currentValue;
+					obj.type = 'cohort';
+					return obj;
+				});
+
+			});
+
+			// Populate events
+			apiRequest.events($scope.selectedCourse).then( function(response) {
+				$scope.events = response.data;
+			});
+
+		}); 
+
 		// Populate charts
 		$scope.charts = [
 			{value: 'bar' , display: 'Barchart'},
@@ -13,25 +52,6 @@ angular.module('groupCohort')
 			{value: 'hist' , display: 'Histogram'},
 			{value:'histSmooth' , display: 'Histogram (Overlay)'}
 		];
-
-		// Populate groups-cohorts select
-		apiRequest.groups().then(function(response) {
-			$scope.groups = response.data.map(function(currentValue) {
-				var obj = {};
-				obj.value = currentValue;
-				obj.type = 'group';
-				return obj;
-			});
-		});
-
-		apiRequest.cohorts().then(function(response) {
-			$scope.cohorts = response.data.map(function(currentValue) {
-				var obj = {};
-				obj.value = currentValue;
-				obj.type = 'cohort';
-				return obj;
-			});
-		});
 
 		// Populate metrics select
 		// NOTE: ensure api fn^ name matches metric name in controller
@@ -42,11 +62,6 @@ angular.module('groupCohort')
 			{value:'courseInteractions', display:'Course Interactions'},
 			{value:'courseSessions', display:'Course Sessions'}
 		];
-
-		// Populate events
-		apiRequest.events().then(function(response) {
-			$scope.events = response.data;
-		});
 
 		// Reset filter
 		$scope.reset = function() {
@@ -93,7 +108,7 @@ angular.module('groupCohort')
 				});
 
 				// Load data
-				dataFormatter.groupsCohorts($scope.selectedGroupsCohorts, metrics, $scope.periodOne, $scope.periodTwo)
+				dataFormatter.groupsCohorts($scope.selectedCourse, $scope.selectedGroupsCohorts, metrics, $scope.periodOne, $scope.periodTwo)
 				.then( function(res) {
 					$scope.data = res;
 				});

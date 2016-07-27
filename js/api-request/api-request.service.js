@@ -4,57 +4,70 @@ angular.module('apiRequest')
 
   // Default Params
   var baseURL = config.BASE_URL,
-      course = config.COURSE,
       anonymized = config.ANONYMIZED;
      
   return {
+
+    /* COURSES */
+    courses: function() {
+      return $http({method: "POST",
+        url: baseURL + "database/courses"
+      });
+    },
+
+    /* CONCEPTS */
+    events: function(course) {
+      return $http({method: "POST",
+        url: baseURL + "course/log-concepts",
+        data: {course:course , "conceptType":"LearningTask"}})
+    },
     
     /* --- STUDENTS / GROUPS / COHORTS --- */
-    students: function() {
+    students: function(course) {
       return $http({method: "POST",
         url: baseURL + "course/active-users",
         data: {course:course}})
     },
 
-    groups: function() {
+    groups: function(course) {
       return $http({method: "POST",
         url: baseURL + "course-instance/groups",
         data: {course:course}})
     },
 
-    cohorts: function() {
+    cohorts: function(course) {
       return $http({method: "POST",
         url: baseURL + "course-instance/cohorts",
         data: {course:course}})
     },
 
-    groupUsers: function(group) {
+    groupUsers: function(course, group) {
       return $http({method: "POST",
         url: baseURL + "course-anonymized/group-users",
         data: {course:course , group:group}})
     },
 
-    cohortUsers: function(cohort) {
+    cohortUsers: function(course, cohort) {
       return $http({method: "POST",
         url: baseURL + "course-anonymized/cohort-users",
         data: {course:course , cohort:cohort}})
     },
 
     /* --- COURSE DATES --- */
-    dates: function() {
+    dates: function(course) {
       return $http({method: "POST",
         url: baseURL + "get-course/dates",
         data: {rcourseID:course}})
     },
 
-    studentDates: function(student) {
+    studentDates: function(course, student) {
       return $http({method: "POST",
         url: baseURL + "get-entity-course/dates",
         data: {"rcourseID":course , learnerID:student}})
     },
 
     /* --- METRICS (STUDENTS) --- */
-    courseDuration: function(students, periodOne, periodTwo) {
+    courseDuration: function(course, students, periodOne, periodTwo) {
       
       var dataObj = {};
       dataObj['rcourseID'] = course;
@@ -68,7 +81,7 @@ angular.module('apiRequest')
       });
     },
 
-    courseLogins: function(students, periodOne, periodTwo) {
+    courseLogins: function(course, students, periodOne, periodTwo) {
 
       var dataObj = {};
       dataObj['rcourseID'] = course;
@@ -82,7 +95,7 @@ angular.module('apiRequest')
       });
     },
 
-    courseSessions: function(students, periodOne, periodTwo) {
+    courseSessions: function(course, students, periodOne, periodTwo) {
 
       var dataObj = {};
       dataObj['rcourseID'] = course;
@@ -96,7 +109,7 @@ angular.module('apiRequest')
       });
     },
 
-    courseInteractions: function(students, periodOne, periodTwo) {
+    courseInteractions: function(course, students, periodOne, periodTwo) {
 
       var dataObj = {};
       dataObj['rcourseID'] = course;
@@ -110,7 +123,7 @@ angular.module('apiRequest')
       });
     },
 
-    engagement: function(students, periodOne, periodTwo) {
+    engagement: function(course, students, periodOne, periodTwo) {
 
       var dataObj = {};
       dataObj['rcourseID'] = course;
@@ -125,7 +138,7 @@ angular.module('apiRequest')
     },
 
     /* METRICS (GROUPSCOHORTS) */
-    courseDurationGroupCohort: function(groupcohort, periodOne, periodTwo) {
+    courseDurationGroupCohort: function(course, groupcohort, periodOne, periodTwo) {
 
       var dataObj = {};
       dataObj['rcourseID'] = course;
@@ -140,7 +153,7 @@ angular.module('apiRequest')
       });
     },
 
-    courseLoginsGroupCohort: function(groupcohort, periodOne, periodTwo) {
+    courseLoginsGroupCohort: function(course, groupcohort, periodOne, periodTwo) {
 
       var dataObj = {};
       dataObj['rcourseID'] = course;
@@ -155,7 +168,7 @@ angular.module('apiRequest')
       });
     },
 
-    courseSessionsGroupCohort: function(groupcohort, periodOne, periodTwo) {
+    courseSessionsGroupCohort: function(course, groupcohort, periodOne, periodTwo) {
 
       var dataObj = {};
       dataObj['rcourseID'] = course;
@@ -170,7 +183,7 @@ angular.module('apiRequest')
       });
     },
 
-    courseInteractionsGroupCohort: function(groupcohort, periodOne, periodTwo) {
+    courseInteractionsGroupCohort: function(course, groupcohort, periodOne, periodTwo) {
 
       var dataObj = {};
       dataObj['rcourseID'] = course;
@@ -185,7 +198,7 @@ angular.module('apiRequest')
       });
     },
 
-    engagementGroupCohort: function(groupcohort, periodOne, periodTwo) {
+    engagementGroupCohort: function(course, groupcohort, periodOne, periodTwo) {
 
       var dataObj = {};
       dataObj['rcourseID'] = course;
@@ -199,13 +212,6 @@ angular.module('apiRequest')
         data: dataObj
       });
     },
-
-    /* CONCEPTS */
-    events: function() {
-      return $http({method: "POST",
-        url: baseURL + "course/log-concepts",
-        data: {course:course , "conceptType":"LearningTask"}})
-    }
 
     /* ADDITIONAL REQUESTS GO HERE */
 

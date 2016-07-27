@@ -6,6 +6,27 @@ angular.module('student')
 		// Init properties
 		$scope.events = [];
 
+		// Populate courses
+		apiRequest.courses().then( function(response) {
+			$scope.courses = response.data;
+			$scope.selectedCourse = $scope.courses[0]; // Default to first course
+		});
+
+		// Populate students & events on course selection
+		$scope.$watch('selectedCourse', function() {
+
+			// Populate students select
+			apiRequest.students($scope.selectedCourse).then( function(response) {
+				$scope.students = response.data;
+			});
+
+			// Populate events
+			apiRequest.events($scope.selectedCourse).then(function(response) {
+				$scope.events = response.data;
+			});
+
+		});
+
 		// Populate charts
 		$scope.charts = [
 			{value: 'bar' , display: 'Barchart'},
@@ -13,11 +34,6 @@ angular.module('student')
 			{value: 'scatter' , display: 'Scatterplot'},
 			{value: 'hist' , display: 'Histogram'}
 		];
-
-		// Populate students select
-		apiRequest.students().then( function(response) {
-			$scope.students = response.data;
-		})
 
 		// Populate metrics select
 		// NOTE: ensure api fn^ name matches metric name in controller
@@ -28,11 +44,6 @@ angular.module('student')
 			{value:'courseInteractions', display:'Course Interactions'},
 			{value:'courseSessions', display:'Course Sessions'}
 		];
-
-		// Populate events
-		apiRequest.events().then(function(response) {
-			$scope.events = response.data;
-		});
 
 		// Reset filter
 		$scope.reset = function() {
@@ -80,7 +91,7 @@ angular.module('student')
 				});
 
 				// Load data
-				dataFormatter.students($scope.selectedStudents , metrics, $scope.periodOne, $scope.periodTwo)
+				dataFormatter.students($scope.selectedCourse, $scope.selectedStudents , metrics, $scope.periodOne, $scope.periodTwo)
 				.then( function(res) {
 					$scope.data = res;
 				});

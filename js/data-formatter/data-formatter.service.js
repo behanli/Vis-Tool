@@ -6,7 +6,7 @@ angular.module('dataFormatter')
 		return {
 
 			/* Asynchronous Methods */
-			students: function(students , metrics, periodOne, periodTwo) {
+			students: function(course, students , metrics, periodOne, periodTwo) {
 
 				// Create parent promise
 				var parentDefer = $q.defer();
@@ -18,7 +18,7 @@ angular.module('dataFormatter')
 				// Create promiseArray for each metric
 				var promiseArray = [];
 				metrics.forEach( function(metric) {
-					var promise = apiRequest[metric](students, periodOne, periodTwo);
+					var promise = apiRequest[metric](course, students, periodOne, periodTwo);
 					promiseArray.push(promise);
 				});
 
@@ -57,7 +57,7 @@ angular.module('dataFormatter')
 				return parentDefer.promise;
 			},
 
-			groupsCohorts: function(groupsCohorts , metrics, periodOne, periodTwo) {
+			groupsCohorts: function(course, groupsCohorts , metrics, periodOne, periodTwo) {
 
 				var parentDefer = $q.defer();
 
@@ -75,7 +75,7 @@ angular.module('dataFormatter')
 					metrics.forEach( function(metric) {
 
 						metric = metric + 'GroupCohort'; // Make GroupCohort API Call
-						var promise = apiRequest[metric](groupCohort, periodOne, periodTwo);
+						var promise = apiRequest[metric](course, groupCohort, periodOne, periodTwo);
 						promiseArray.push(promise);
 
 					});
