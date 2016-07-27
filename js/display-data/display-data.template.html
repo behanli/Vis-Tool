@@ -1,3 +1,13 @@
+<form class="form-inline">
+	<div class="form-group">
+		<json-modal data="data"></json-modal>
+	</div>
+	<div class="form-group">
+		<!-- csv-modal -->
+	</div>
+</form>
+<hr>
+
 <table class="table table-striped">
 	
 	<thead>
@@ -5,9 +15,8 @@
 			<th ng-repeat="key in textKeys.concat(numKeys)">{{key}}</th>
 		</tr>
 	</thead>
-
 	<tbody>
-		<tr ng-repeat="student in data">
+		<tr ng-repeat="student in data track by student.student">
 			<td ng-repeat="key in textKeys">
 				<input readonly class="form-control" type="text" ng-model="student[key]">
 			</td>

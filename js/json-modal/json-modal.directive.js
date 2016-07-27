@@ -22,6 +22,7 @@ angular.module('jsonModal')
 			if(!$scope.data) return;
 
 			var nestData; // Temp data to preserve existing data structure
+			console.log(Object.keys($scope.data[0]));
 
 			if($scope.nestBy != 'none') {
 				nestData = d3.nest()
@@ -39,7 +40,7 @@ angular.module('jsonModal')
 
 		// Watches
 		$scope.$watch('data', $scope.init);
-		$scope.$watch('data', $scope.printJSON);
+		$scope.$watch('data', $scope.printJSON, true);
 		$scope.$watch('nestBy', $scope.printJSON);
 
 	}];
