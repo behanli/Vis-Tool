@@ -1,6 +1,6 @@
 // Define 'png-modal' directive
-angular.module('exportModal')
-.directive('exportModal', ['$http', function($http) { 
+angular.module('exportChartModal')
+.directive('exportChartModal', ['$http', function($http) { 
 
 	var controller = ['$scope', function($scope) { 
 
@@ -87,7 +87,7 @@ angular.module('exportModal')
 
 	return {
 		restrict: 'E',
-		templateUrl: 'js/export-modal/export-modal.template.html',
+		templateUrl: 'js/export-chart-modal/export-chart-modal.template.html',
 		controller: controller,
 		link: link
 	}
