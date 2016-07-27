@@ -14,7 +14,8 @@ angular.module('visApp' , [
   'navigation',
   'charts',
   'exportModal',
-  'jsonModal'
+  'jsonModal',
+  'displayData'
 
 ]);
 

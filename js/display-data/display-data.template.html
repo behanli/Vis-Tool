@@ -1,0 +1,20 @@
+<table class="table table-striped">
+	
+	<thead>
+		<tr>
+			<th ng-repeat="key in textKeys.concat(numKeys)">{{key}}</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<tr ng-repeat="student in data">
+			<td ng-repeat="key in textKeys">
+				<input readonly class="form-control" type="text" ng-model="student[key]">
+			</td>
+			<td ng-repeat="key in numKeys">
+				<input class="form-control" type="number" min="0" ng-model="student[key]">
+			</td>
+		</tr>
+	</tbody>
+
+</table>

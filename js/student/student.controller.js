@@ -83,7 +83,7 @@ angular.module('student')
 			/* Timeout used so that each directive is recalled on submit
 				with a new scope initialised */
 			$timeout( function() {
-				
+
 				// Update charts only on 'Submit'
 				$scope.metricsToDisplay = $scope.selectedMetrics;
 				$scope.chartToDisplay = $scope.selectedChart;

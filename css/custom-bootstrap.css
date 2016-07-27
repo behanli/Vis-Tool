@@ -110,7 +110,7 @@ form .reset:hover {
 
 /* JSON modal */
 #jsonModal pre {
-  height: 300px;
+  height: 400px;
 }
 
 /* ------------------------------------------------------
@@ -129,6 +129,21 @@ h4[data-toggle="collapse"]:hover {
   text-decoration: underline;
   cursor: pointer;
 }
+
+/* data-display table */
+#dataPanel table tbody td {
+  padding: 0;
+}
+
+#dataPanel table tbody td input {
+  border: none;
+  background-color: transparent;
+}
+
+#dataPanel table tbody td input:focus {
+  box-shadow: 0 0 0 1px #66afe9 inset;
+}
+
 
 /* ------------------------------------------------------
 		Tooltips 

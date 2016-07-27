@@ -76,7 +76,7 @@ angular.module('charts')
 		yScale.range([innerHeight, 0]);
 
 		// Watches
-		scope.$watch('data', render);
+		scope.$watch('data', render, true);
 		scope.$watch('groupcohort', render);
 		scope.$watch('yMetric', changeY);
 		scope.$watch('plotAvg', overlayAvg);
@@ -125,9 +125,7 @@ angular.module('charts')
 			yScale.domain(yScaleDomain(data));
 
 			// Selection
-			bars = g.selectAll('rect').data(data /*, function(d) {
-				return d.student; // Join by key
-			}*/);
+			bars = g.selectAll('rect').data(data);
 
 			// Enter
 			bars.enter()
@@ -138,7 +136,7 @@ angular.module('charts')
 					.attr("y" , function(d) {
 						return yScale(d[scope.yMetric]);
 					})
-					.attr("width", 0)
+					.attr("width", xScale.rangeBand())
 					.attr("x" , function(d,i) {
 						return xScale(d.student);
 					})
@@ -155,10 +153,14 @@ angular.module('charts')
 						// Display tooltip
 						var student = d3.select(this).datum();
 
-						tooltip//.transition()
+						tooltip
 							.style("opacity", 0.9);
 						tooltip
-							.html("<b>" + student.student + "</b>" + "<br>" + scope.yMetric + ": " + student[scope.yMetric])
+							.html( function() {
+								var value = student[scope.yMetric];
+								var printValue = value / 1000 > 1 ? d3.format(",.0f")(value) : d3.format(".3n")(value);
+								return "<b>" + student.student + "</b>" + "<br>" + scope.yMetric + ": " + printValue;
+							})
 							.style("left", (d3.event.pageX + 10) + "px")
 							.style("top", (d3.event.pageY - 40) + "px");					
 
@@ -175,12 +177,6 @@ angular.module('charts')
 							.style("opacity", 0);
 
 				});
-
-			// Update
-			bars
-				.transition()
-				.duration(750)
-				.attr("width", xScale.rangeBand());
 
 			// Axis
 			g.append('g')

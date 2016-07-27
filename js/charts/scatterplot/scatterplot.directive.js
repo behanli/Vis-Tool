@@ -70,13 +70,13 @@ angular.module('charts')
 		rScale.range([2 , 20]);
 
 		// Watches
+		scope.$watch('data', render, true);
+		scope.$watch('xMetric', moveX);
+		scope.$watch('yMetric', moveY);
+		scope.$watch('scaleBy', scale);
 		scope.$watch( function() {
 			return angular.element($window)[0].innerWidth;
 		}, resize);
-		scope.$watch('data', render);
-		scope.$watch('xMetric', moveX); /* Modify render() to handle additional functionality */
-		scope.$watch('yMetric', moveY);
-		scope.$watch('scaleBy', scale);
 
 		// Functions to handle asynchronous data and ui events
 
@@ -112,13 +112,22 @@ angular.module('charts')
 
 			// Enter
 			circles.enter().append('circle')
-				.attr("r" , 0)
+				.attr("r" , function(d) {
+					return scope.scaleBy == 'none' ? radius : scaleDomain(d);
+				})
+				.attr("cx" , function(d) {
+					return xScale( d[scope.xMetric] );
+				})
+				.attr("cy", function(d) {
+					return yScale( d[scope.yMetric] );
+				})
 				.attr("stroke" , function(d) {
 					return fill(d.groupcohort);
 				})
 				.attr("fill", function(d) {
 					return fill(d.groupcohort);
 				})
+
 				.attr("opacity", opacity)
 				.on("mouseover" , function() {
 
@@ -133,12 +142,15 @@ angular.module('charts')
 						tooltip//.transition()
 							.style("opacity", 0.9);
 						tooltip
-							.style("height", 70 + "px") // Adjust for additional information
+							.style("height", 50 + "px") // Adjust for additional information
 							.html( function() {
+
+								var x = student[scope.xMetric] > 1000 ? d3.format(",.0f")(student[scope.xMetric]) : d3.format(".3n")(student[scope.xMetric]);
+								var y = student[scope.yMetric] > 1000 ? d3.format(",.0f")(student[scope.yMetric]) : d3.format(".3n")(student[scope.yMetric]);
 								var string = "<b>" + student.student + "</b><br>";
 								string += student.groupcohort == 'NA' ? '' : "<em>" + student.groupcohort + "</em><br>";
-								string += scope.xMetric + ": " + student[scope.xMetric]
-									+ "<br>" + scope.yMetric + ": " + student[scope.yMetric];
+								string += "x: " + x 
+									+ "<br>y: " + y;
 								return string;
 							})
 							.style("left", (d3.event.pageX + 10) + "px")
@@ -154,20 +166,6 @@ angular.module('charts')
 						// Hide tooltip
 						tooltip
 							.style("opacity", 0);
-				});
-
-			// Update
-			circles
-				.attr("cx" , function(d) {
-					return xScale( d[scope.xMetric] );
-				})
-				.attr("cy", function(d) {
-					return yScale( d[scope.yMetric] );
-				})
-				.transition()
-				.duration(750)
-				.attr("r", function(d) {
-					return scope.scaleBy == 'none' ? radius : scaleDomain(d);
 				});
 
 			// Axis

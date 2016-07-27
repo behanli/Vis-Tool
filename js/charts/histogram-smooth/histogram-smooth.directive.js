@@ -54,7 +54,7 @@ angular.module('charts')
 			.range([innerHeight , 0]);
 
 		// Watches
-		scope.$watch('data', render);
+		scope.$watch('data', render, true);
 		scope.$watch('bins', render);
 		scope.$watch('xMetric', render);
 		scope.$watch('plotAvg', overlayAvg);
