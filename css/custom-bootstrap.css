@@ -137,6 +137,7 @@ h4[data-toggle="collapse"]:hover {
 
 #dataPanel table tbody td input {
   border: none;
+  border-radius: 0;
   background-color: transparent;
 }
 

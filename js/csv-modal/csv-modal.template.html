@@ -1,0 +1,32 @@
+<!-- Trigger the modal with a button -->
+<button type="button" class="btn btn-default form-control" data-toggle="modal" data-target="#csvModal">CSV</button>
+
+<!-- Modal -->
+<div id="csvModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Export CSV</h4>
+      </div>
+      <div class="modal-body">
+        <pre id="csvPre"></pre>
+      </div>
+      <div class="modal-footer">
+        <form class="form-inline">
+          <div class="form-group pull-left">
+            <input type="text" class="form-control" ng-model="saveAs">
+            <label>.csv</label>
+          </div>
+        </form>
+        <button type="button" class="btn btn-primary" ng-click="saveCSV()">Save</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Hidden anchor used to download json -->
+<a id="downloadCSV" style="display:none"></a>

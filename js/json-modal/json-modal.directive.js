@@ -4,7 +4,6 @@ angular.module('jsonModal')
 
 	var controller = ['$scope', function($scope) {
 
-		// Default params
 		$scope.init = function() {
 
 			if(!$scope.data) return;
@@ -22,7 +21,6 @@ angular.module('jsonModal')
 			if(!$scope.data) return;
 
 			var nestData; // Temp data to preserve existing data structure
-			console.log(Object.keys($scope.data[0]));
 
 			if($scope.nestBy != 'none') {
 				nestData = d3.nest()
@@ -56,7 +54,7 @@ angular.module('jsonModal')
 
 			anchor.setAttribute("href", encodedData);
 			anchor.setAttribute("download", scope.saveAs + '.json');
-			anchor.click();
+			anchor.click(); // Initiate download
 
 		}
 
