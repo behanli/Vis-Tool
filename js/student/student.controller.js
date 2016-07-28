@@ -27,12 +27,18 @@ angular.module('student')
 				$scope.events = response.data;
 			});
 
+			// Populate event-filters
+			apiRequest.eventFilters($scope.selectedCourse).then( function(response) { 
+				$scope.eventFilters = response.data.rows.map( function(row) {
+					return row[0];
+				});
+			});
+
 		});
 
 		// Populate charts
 		$scope.charts = [
 			{value: 'bar' , display: 'Barchart'},
-			/*{value: 'line' , display: 'Linechart'},*/
 			{value: 'scatter' , display: 'Scatterplot'},
 			{value: 'hist' , display: 'Histogram'}
 		];
@@ -58,14 +64,16 @@ angular.module('student')
 				prefix: 'from',
 				type: 'Date',
 				date: config.DEFAULT_START_DATE,
-				event: ''
+				event: '',
+				eventFilter: ''
 			};
 			
 			$scope.periodTwo = {
 				prefix: 'to',
 				type: 'Date',
 				date: config.DEFAULT_END_DATE,
-				event: ''
+				event: '',
+				eventFilter: ''
 			};
 		
 		}

@@ -148,7 +148,7 @@ angular.module('dataFormatter')
 			if (periodObj.type == 'Date') {
 				periodObj.value = formatDate(periodObj.date);
 			} else {
-				periodObj.value = "concept='" + periodObj.event + "' and event='concept-completed'";
+				periodObj.value = "concept='" + periodObj.event + "' and event='" + periodObj.eventFilter +"'";
 			}
 
 			// Internal function to return date in 'dd-MM-yyyy H:mm:ss' format

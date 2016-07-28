@@ -15,7 +15,20 @@ angular.module('apiRequest')
       });
     },
 
-    /* CONCEPTS */
+    /* and Events */
+    eventFilters: function(course) {
+
+      var data = {};
+      data.select = "DISTINCT(event)";
+      data.where = "course='" + course + "'";
+      
+      return $http({method: "POST",
+        url: baseURL + "query/parts",
+        data: data
+      });
+    },
+
+    /* events */
     events: function(course) {
       return $http({method: "POST",
         url: baseURL + "course/log-concepts",
@@ -74,6 +87,7 @@ angular.module('apiRequest')
       dataObj['learners'] = students;
       dataObj[periodOne.prefix + periodOne.type] = periodOne.value;
       dataObj[periodTwo.prefix + periodTwo.type] = periodTwo.value;
+      console.log(dataObj);
 
       return $http({method:"POST",
         url: baseURL + "get-students/course-duration",
