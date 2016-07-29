@@ -41,7 +41,7 @@ angular.module('tabs')
 			});
 
 			// Populate events
-			apiRequest.events($scope.selectedCourse).then( function(response) {
+			apiRequest.events($scope.selectedCourse, "LearningTask").then( function(response) {
 				$scope.events = response.data;
 			});
 
@@ -52,14 +52,6 @@ angular.module('tabs')
 
 		}); 
 
-		// Populate charts
-		$scope.charts = [
-			{value: 'bar' , display: 'Barchart'},
-			{value: 'scatter' , display: 'Scatterplot'},
-			{value: 'hist' , display: 'Histogram'},
-			{value:'histSmooth' , display: 'Histogram (Overlay)'}
-		];
-
 		// Populate metrics select
 		// NOTE: ensure api fn^ name matches metric name in controller
 		$scope.metrics = [
@@ -68,6 +60,14 @@ angular.module('tabs')
 			{value:'courseLogins', display:'Course Logins'},
 			{value:'courseInteractions', display:'Course Interactions'},
 			{value:'courseSessions', display:'Course Sessions'}
+		];
+
+		// Populate charts
+		$scope.charts = [
+			{value: 'bar' , display: 'Barchart'},
+			{value: 'scatter' , display: 'Scatterplot'},
+			{value: 'hist' , display: 'Histogram'},
+			{value:'histSmooth' , display: 'Histogram (Overlay)'}
 		];
 
 		// Reset filter

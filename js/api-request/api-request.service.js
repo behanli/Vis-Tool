@@ -16,10 +16,10 @@ angular.module('apiRequest')
     },
 
     /* events */
-    events: function(course) {
+    events: function(course, conceptType) {
       return $http({method: "POST",
         url: baseURL + "course/log-concepts",
-        data: {course:course , "conceptType":"LearningTask"}})
+        data: {course:course , conceptType:conceptType}})
     },
 
     /* eventFilter */
@@ -27,6 +27,14 @@ angular.module('apiRequest')
       return $http({method: "POST",
         url: baseURL + "course/log-events",
         data: {course:course}
+      });
+    },
+
+    /* engagement options */
+    engagementOptions: function(course) {
+      return $http({method: "POST",
+        url: baseURL + "course-engagement/default-options",
+        data: {rcourseID:course}
       });
     },
     

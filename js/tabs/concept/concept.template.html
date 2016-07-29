@@ -2,3 +2,68 @@
 
 <!-- nav menu -->
 <navigation active="concept"></navigation>
+
+<!-- content -->
+<div class="container-fluid" ng-controller="conceptCtrl">
+	<div class="row">
+
+		<!-- filter -->
+		<div class="col-sm-4" id="filter">
+			<div class="panel panel-default myFilter">
+				
+				<div class="panel-heading">
+					<h3>Filter</h3>
+				</div>
+
+				<div class="panel-body">
+					<form role="form">
+						<div class="form-group">
+							<label>Course</label>
+							<select class="form-control" ng-model="selectedCourse" ng-options="course for course in courses"></select>
+						</div>
+						<hr>
+						<div class="form-group">
+							<select class="form-control" ng-model="selectedStudentsOption" ng-options="option for option in selectedStudentsOptions">
+							</select>
+						</div>
+						<div class="form-group" ng-show="selectedStudentsOption == 'students'">
+							<label>Student(s)</label>
+							<select class="form-control" multiple ng-model="selectedStudents" ng-options="student for student in students"></select>
+						</div>
+						<div class="form-group" ng-show="selectedStudentsOption == 'groupscohorts'">
+							<label>Group(s) / Cohort(s)</label>
+							<select class="form-control" multiple ng-model="selectedGroupsCohorts" ng-options="groupCohort.value as groupCohort.value group by groupCohort.type for groupCohort in cohorts.concat(groups)"></select>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label>Metric</label>
+							<select class="form-control" ng-model="selectedMetric" ng-options="metric.display for metric in metrics | orderBy: 'display'"></select>
+						</div>
+						<hr>
+						<div class="form-group" ng-show="conceptOptions.indexOf(selectedMetric.value) != -1">
+							<label>Concept</label>
+							<select class="form-control" ng-model="selectedConcept" ng-options="concept.value as concept.value group by concept.type for concept in tasks.concat(topics)">
+							</select>
+						</div>
+						<div class="form-group" ng-show="selectedMetric.value == 'engagementConcept'">
+							<label>Option(s)</label>
+							<select class="form-control" multiple ng-model="selectedEngagementOptions" ng-options="option for option in engagementOptions"></select>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label>Chart</label>
+							<select class="form-control" ng-model="selectedChart" ng-options="chart.display for chart in charts"></select>
+						</div>
+						<hr>
+						<span class="pull-left reset" ng-click="reset()">Reset</span>
+						<input type="submit" class="btn btn-primary btn-md pull-right" value="Submit" ng-click="handleSubmit()">
+					</form>
+				</div>
+
+			</div>
+
+		</div> <!-- </filter> -->
+
+
+	</div> <!-- <row> -->
+</div> <!-- </content> -->
