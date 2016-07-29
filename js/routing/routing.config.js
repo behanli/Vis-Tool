@@ -11,12 +11,17 @@ angular.module('visApp')
 
 			// route for the students page
 			.when('/students' , {
-				templateUrl: 'js/student/student.template.html'
+				templateUrl: 'js/tabs/student/student.template.html'
 			})
 
 			// route for the groups-cohorts page
 			.when('/groups-cohorts' , {
-				templateUrl: 'js/group-cohort/group-cohort.template.html'
+				templateUrl: 'js/tabs/group-cohort/group-cohort.template.html'
+			})
+
+			// route for the concept page
+			.when('/concept', {
+				templateUrl: 'js/tabs/concept/concept.template.html'
 			})
 
 			// default route

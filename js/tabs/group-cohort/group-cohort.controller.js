@@ -1,6 +1,6 @@
-// Define the 'student-controller' controller
-angular.module('student')
-.controller('studentCtrl' , ['$scope' , 'apiRequest' , 'dataFormatter', 'config', '$timeout',
+// Define the 'group-controller' controller 
+angular.module('tabs')
+.controller('groupCohortCtrl' , [ '$scope', 'apiRequest' , 'dataFormatter', 'config', '$timeout',
 	function($scope , apiRequest, dataFormatter, config, $timeout) {
 
 		// Init properties
@@ -12,18 +12,36 @@ angular.module('student')
 			$scope.selectedCourse = $scope.courses[0]; // Default to first course
 		});
 
-		// Populate students & events on course selection
+		// Populate groups / cohorts & events on course selection
 		$scope.$watch('selectedCourse', function() {
 
 			if(!$scope.selectedCourse) return;
 
-			// Populate students select
-			apiRequest.students($scope.selectedCourse).then( function(response) {
-				$scope.students = response.data;
+			// Populate groups-cohorts select
+			apiRequest.groups($scope.selectedCourse).then( function(response) { // groups
+				
+				$scope.groups = response.data.map( function(currentValue) {
+					var obj = {};
+					obj.value = currentValue;
+					obj.type = 'group';
+					return obj;
+				});
+
+			});
+
+			apiRequest.cohorts($scope.selectedCourse).then(function( response) { // cohorts
+				
+				$scope.cohorts = response.data.map( function(currentValue) {
+					var obj = {};
+					obj.value = currentValue;
+					obj.type = 'cohort';
+					return obj;
+				});
+
 			});
 
 			// Populate events
-			apiRequest.events($scope.selectedCourse).then(function(response) {
+			apiRequest.events($scope.selectedCourse).then( function(response) {
 				$scope.events = response.data;
 			});
 
@@ -34,13 +52,14 @@ angular.module('student')
 				});
 			});
 
-		});
+		}); 
 
 		// Populate charts
 		$scope.charts = [
 			{value: 'bar' , display: 'Barchart'},
 			{value: 'scatter' , display: 'Scatterplot'},
-			{value: 'hist' , display: 'Histogram'}
+			{value: 'hist' , display: 'Histogram'},
+			{value:'histSmooth' , display: 'Histogram (Overlay)'}
 		];
 
 		// Populate metrics select
@@ -56,8 +75,7 @@ angular.module('student')
 		// Reset filter
 		$scope.reset = function() {
 			$scope.selectedChart = $scope.charts[0];
-			$scope.studentFilter = '';
-			$scope.selectedStudents = [];
+			$scope.selectedGroupsCohorts = [];
 			$scope.selectedMetrics = [];
 
 			$scope.periodOne = {
@@ -95,18 +113,18 @@ angular.module('student')
 				// Update charts only on 'Submit'
 				$scope.metricsToDisplay = $scope.selectedMetrics;
 				$scope.chartToDisplay = $scope.selectedChart;
-				
+			
 				var metrics = $scope.selectedMetrics.map( function(metric) {
 					return metric.value;
 				});
 
 				// Load data
-				dataFormatter.students($scope.selectedCourse, $scope.selectedStudents , metrics, $scope.periodOne, $scope.periodTwo)
+				dataFormatter.groupsCohorts($scope.selectedCourse, $scope.selectedGroupsCohorts, metrics, $scope.periodOne, $scope.periodTwo)
 				.then( function(res) {
 					$scope.data = res;
 				});
 
 			}, 10);
 		}
-
-}]);
+		
+}]); 

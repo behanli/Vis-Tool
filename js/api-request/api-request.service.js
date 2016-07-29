@@ -87,7 +87,6 @@ angular.module('apiRequest')
       dataObj['learners'] = students;
       dataObj[periodOne.prefix + periodOne.type] = periodOne.value;
       dataObj[periodTwo.prefix + periodTwo.type] = periodTwo.value;
-      console.log(dataObj);
 
       return $http({method:"POST",
         url: baseURL + "get-students/course-duration",

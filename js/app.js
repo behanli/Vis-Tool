@@ -4,8 +4,7 @@ angular.module('visApp' , [
   // Dependencies
   'constant',
   'ngRoute',
-  'student',
-  'groupCohort',
+  'tabs',
   'apiRequest',
   'ui.bootstrap',
   'periodSelector',

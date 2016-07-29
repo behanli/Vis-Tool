@@ -1,6 +1,6 @@
-// Define the 'group-controller' controller 
-angular.module('groupCohort')
-.controller('groupCohortCtrl' , [ '$scope', 'apiRequest' , 'dataFormatter', 'config', '$timeout',
+// Define the 'student-controller' controller
+angular.module('tabs')
+.controller('studentCtrl' , ['$scope' , 'apiRequest' , 'dataFormatter', 'config', '$timeout',
 	function($scope , apiRequest, dataFormatter, config, $timeout) {
 
 		// Init properties
@@ -12,36 +12,18 @@ angular.module('groupCohort')
 			$scope.selectedCourse = $scope.courses[0]; // Default to first course
 		});
 
-		// Populate groups / cohorts & events on course selection
+		// Populate students & events on course selection
 		$scope.$watch('selectedCourse', function() {
 
 			if(!$scope.selectedCourse) return;
 
-			// Populate groups-cohorts select
-			apiRequest.groups($scope.selectedCourse).then( function(response) { // groups
-				
-				$scope.groups = response.data.map( function(currentValue) {
-					var obj = {};
-					obj.value = currentValue;
-					obj.type = 'group';
-					return obj;
-				});
-
-			});
-
-			apiRequest.cohorts($scope.selectedCourse).then(function( response) { // cohorts
-				
-				$scope.cohorts = response.data.map( function(currentValue) {
-					var obj = {};
-					obj.value = currentValue;
-					obj.type = 'cohort';
-					return obj;
-				});
-
+			// Populate students select
+			apiRequest.students($scope.selectedCourse).then( function(response) {
+				$scope.students = response.data;
 			});
 
 			// Populate events
-			apiRequest.events($scope.selectedCourse).then( function(response) {
+			apiRequest.events($scope.selectedCourse).then(function(response) {
 				$scope.events = response.data;
 			});
 
@@ -52,14 +34,13 @@ angular.module('groupCohort')
 				});
 			});
 
-		}); 
+		});
 
 		// Populate charts
 		$scope.charts = [
 			{value: 'bar' , display: 'Barchart'},
 			{value: 'scatter' , display: 'Scatterplot'},
-			{value: 'hist' , display: 'Histogram'},
-			{value:'histSmooth' , display: 'Histogram (Overlay)'}
+			{value: 'hist' , display: 'Histogram'}
 		];
 
 		// Populate metrics select
@@ -75,7 +56,8 @@ angular.module('groupCohort')
 		// Reset filter
 		$scope.reset = function() {
 			$scope.selectedChart = $scope.charts[0];
-			$scope.selectedGroupsCohorts = [];
+			$scope.studentFilter = '';
+			$scope.selectedStudents = [];
 			$scope.selectedMetrics = [];
 
 			$scope.periodOne = {
@@ -113,18 +95,18 @@ angular.module('groupCohort')
 				// Update charts only on 'Submit'
 				$scope.metricsToDisplay = $scope.selectedMetrics;
 				$scope.chartToDisplay = $scope.selectedChart;
-			
+				
 				var metrics = $scope.selectedMetrics.map( function(metric) {
 					return metric.value;
 				});
 
 				// Load data
-				dataFormatter.groupsCohorts($scope.selectedCourse, $scope.selectedGroupsCohorts, metrics, $scope.periodOne, $scope.periodTwo)
+				dataFormatter.students($scope.selectedCourse, $scope.selectedStudents , metrics, $scope.periodOne, $scope.periodTwo)
 				.then( function(res) {
 					$scope.data = res;
 				});
 
 			}, 10);
 		}
-		
-}]); 
+
+}]);
