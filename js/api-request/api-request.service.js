@@ -15,24 +15,19 @@ angular.module('apiRequest')
       });
     },
 
-    /* and Events */
-    eventFilters: function(course) {
-
-      var data = {};
-      data.select = "DISTINCT(event)";
-      data.where = "course='" + course + "'";
-      
-      return $http({method: "POST",
-        url: baseURL + "query/parts",
-        data: data
-      });
-    },
-
     /* events */
     events: function(course) {
       return $http({method: "POST",
         url: baseURL + "course/log-concepts",
         data: {course:course , "conceptType":"LearningTask"}})
+    },
+
+    /* eventFilter */
+    eventFilters: function(course) {
+      return $http({method: "POST",
+        url: baseURL + "course/log-events",
+        data: {course:course}
+      });
     },
     
     /* --- STUDENTS / GROUPS / COHORTS --- */

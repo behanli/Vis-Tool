@@ -47,9 +47,7 @@ angular.module('tabs')
 
 			// Populate event-filters
 			apiRequest.eventFilters($scope.selectedCourse).then( function(response) { 
-				$scope.eventFilters = response.data.rows.map( function(row) {
-					return row[0];
-				});
+				$scope.eventFilters = response.data;
 			});
 
 		}); 
