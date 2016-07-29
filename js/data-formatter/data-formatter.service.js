@@ -6,19 +6,19 @@ angular.module('dataFormatter')
 		return {
 
 			/* Asynchronous Methods */
-			students: function(course, students , metrics, periodOne, periodTwo) {
+			students: function(course, students , metrics, periodOne, periodTwo, engagementOptions) {
 
 				// Create parent promise
 				var parentDefer = $q.defer();
 
 				// Format period(s)
-				periodOne = formatPeriod(periodOne);
-				periodTwo = formatPeriod(periodTwo);
+				periodOne = (periodOne) ? formatPeriod(periodOne) : null;
+				periodTwo = (periodTwo) ? formatPeriod(periodTwo) : null;
 
 				// Create promiseArray for each metric
 				var promiseArray = [];
 				metrics.forEach( function(metric) {
-					var promise = apiRequest[metric](course, students, periodOne, periodTwo);
+					var promise = apiRequest[metric](course, students, periodOne, periodTwo, engagementOptions);
 					promiseArray.push(promise);
 				});
 
@@ -57,13 +57,13 @@ angular.module('dataFormatter')
 				return parentDefer.promise;
 			},
 
-			groupsCohorts: function(course, groupsCohorts , metrics, periodOne, periodTwo) {
+			groupsCohorts: function(course, groupsCohorts , metrics, periodOne, periodTwo, engagementOptions) {
 
 				var parentDefer = $q.defer();
 
 				// Format period(s)
-				periodOne = formatPeriod(periodOne);
-				periodTwo = formatPeriod(periodTwo);
+				periodOne = (periodOne) ? formatPeriod(periodOne) : null;
+				periodTwo = (periodTwo) ? formatPeriod(periodTwo) : null;
 
 				// Resolve a given groupcohort
 				function groupCohortPromise(groupCohort, defer) {
@@ -75,7 +75,7 @@ angular.module('dataFormatter')
 					metrics.forEach( function(metric) {
 
 						metric = metric + 'GroupCohort'; // Make GroupCohort API Call
-						var promise = apiRequest[metric](course, groupCohort, periodOne, periodTwo);
+						var promise = apiRequest[metric](course, groupCohort, periodOne, periodTwo, engagementOptions);
 						promiseArray.push(promise);
 
 					});

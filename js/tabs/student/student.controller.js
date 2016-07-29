@@ -99,7 +99,7 @@ angular.module('tabs')
 				});
 
 				// Load data
-				dataFormatter.students($scope.selectedCourse, $scope.selectedStudents , metrics, $scope.periodOne, $scope.periodTwo)
+				dataFormatter.students($scope.selectedCourse, $scope.selectedStudents , metrics, $scope.periodOne, $scope.periodTwo, null)
 				.then( function(res) {
 					$scope.data = res;
 				});

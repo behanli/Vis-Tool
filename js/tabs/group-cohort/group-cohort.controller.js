@@ -117,7 +117,7 @@ angular.module('tabs')
 				});
 
 				// Load data
-				dataFormatter.groupsCohorts($scope.selectedCourse, $scope.selectedGroupsCohorts, metrics, $scope.periodOne, $scope.periodTwo)
+				dataFormatter.groupsCohorts($scope.selectedCourse, $scope.selectedGroupsCohorts, metrics, $scope.periodOne, $scope.periodTwo, null)
 				.then( function(res) {
 					$scope.data = res;
 				});

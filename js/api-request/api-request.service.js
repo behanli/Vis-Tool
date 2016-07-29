@@ -15,14 +15,15 @@ angular.module('apiRequest')
       });
     },
 
-    /* events */
+    /* EVENTS */
     events: function(course, conceptType) {
       return $http({method: "POST",
         url: baseURL + "course/log-concepts",
-        data: {course:course , conceptType:conceptType}})
+        data: {course:course , conceptType:conceptType}
+      });
     },
 
-    /* eventFilter */
+    /* eventFilters */
     eventFilters: function(course) {
       return $http({method: "POST",
         url: baseURL + "course/log-events",
@@ -30,7 +31,7 @@ angular.module('apiRequest')
       });
     },
 
-    /* engagement options */
+    /* ENGAGEMENT OPTIONS */
     engagementOptions: function(course) {
       return $http({method: "POST",
         url: baseURL + "course-engagement/default-options",
@@ -79,7 +80,7 @@ angular.module('apiRequest')
     studentDates: function(course, student) {
       return $http({method: "POST",
         url: baseURL + "get-entity-course/dates",
-        data: {"rcourseID":course , learnerID:student}})
+        data: {rcourseID:course , learnerID:student}})
     },
 
     /* --- METRICS (STUDENTS) --- */
@@ -228,6 +229,36 @@ angular.module('apiRequest')
         data: dataObj
       });
     },
+
+    /* METRICS (CONCEPTS) */
+    engagementConcept: function(course, students, periodOne, periodTwo, options) {
+
+      var dataObj = {};
+      dataObj['rcourseID'] = course;
+      dataObj['learners'] = students;
+      dataObj['options'] = options;
+    
+      return $http({method: "POST",
+        url: baseURL + "calculate-students/specific-individual-engagement",
+        data: dataObj
+      });
+    },
+
+    engagementConceptGroupCohort: function(course, groupcohort, periodOne, periodTwo, options) {
+
+      var dataObj = {};
+      dataObj['rcourseID'] = course;
+      dataObj['group-cohort'] = groupcohort;
+      dataObj['options'] = options;
+      dataObj['anonymized'] = anonymized;
+
+      return $http({method: "POST",
+        url: baseURL + "calculate-groupcohort/specific-individual-engagement",
+        data: dataObj
+      });
+    }
+
+    /* TODO: get-<students/groupcohort>/course-concept-<duration/interactions> */
 
     /* ADDITIONAL REQUESTS GO HERE */
 

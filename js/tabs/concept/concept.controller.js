@@ -1,6 +1,7 @@
 // Define 'concept-controller' controller
 angular.module('tabs')
-.controller('conceptCtrl', ['$scope', 'apiRequest', function($scope, apiRequest) { 
+.controller('conceptCtrl', ['$scope', 'apiRequest', '$timeout', 'dataFormatter', 
+	function($scope, apiRequest, $timeout, dataFormatter) { 
 
 	// Init properties
 	$scope.events = [];
@@ -110,7 +111,39 @@ angular.module('tabs')
 	// Function to handle submit btn
 	$scope.handleSubmit = function() {
 
-		// TODO
+		/* Undefine data to prevent chart duplication
+					from previous submit */
+		$scope.data = undefined;
+		$scope.chartToDisplay = undefined;
+
+		/* Timeout used so that each directive is recalled on submit
+				with a new scope initialised */
+		$timeout( function() {  
+
+			// Update charts only on 'Submit'
+			$scope.metricsToDisplay = [$scope.selectedMetric];
+			$scope.chartToDisplay = $scope.selectedChart;
+
+			var metrics = [$scope.selectedMetric.value];
+
+			// Call to data formatter
+			if ($scope.selectedStudentsOption == 'students') {
+
+				dataFormatter.students($scope.selectedCourse, $scope.selectedStudents, metrics, null, null, $scope.selectedEngagementOptions)
+				.then( function(res) {
+					$scope.data = res;
+				});
+
+			} else { // groupscohorts
+
+				dataFormatter.groupsCohorts($scope.selectedCourse, $scope.selectedGroupsCohorts, metrics, null, null, $scope.selectedEngagementOptions)
+				.then (function(res) {
+					$scope.data = res;
+				});
+
+			}
+
+		}, 10);
 
 	}
 
