@@ -48,7 +48,8 @@ angular.module('tabs')
 		$scope.charts = [
 			{value: 'bar' , display: 'Barchart'},
 			{value: 'scatter' , display: 'Scatterplot'},
-			{value: 'hist' , display: 'Histogram'}
+			{value: 'hist' , display: 'Histogram'},
+			{value:'histSmooth' , display: 'Histogram (Overlay)'}
 		];
 
 		// Reset filter
