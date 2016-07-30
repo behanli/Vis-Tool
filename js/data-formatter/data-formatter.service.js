@@ -6,26 +6,26 @@ angular.module('dataFormatter')
 		return {
 
 			/* Asynchronous Methods */
-			students: function(course, students , metrics, periodOne, periodTwo, engagementOptions) {
+			students: function(params) {
 
 				// Create parent promise
 				var parentDefer = $q.defer();
 
-				// Format period(s)
-				periodOne = (periodOne) ? formatPeriod(periodOne) : null;
-				periodTwo = (periodTwo) ? formatPeriod(periodTwo) : null;
+				// Format period(s) if applicable
+				params.periodOne = (params.periodOne) ? formatPeriod(params.periodOne) : null;
+				params.periodTwo = (params.periodTwo) ? formatPeriod(params.periodTwo) : null;
 
 				// Create promiseArray for each metric
 				var promiseArray = [];
-				metrics.forEach( function(metric) {
-					var promise = apiRequest[metric](course, students, periodOne, periodTwo, engagementOptions);
+				params.metrics.forEach( function(metric) {
+					var promise = apiRequest[metric](params);
 					promiseArray.push(promise);
 				});
 
 				// Resolve promises in parallel
 				$q.all(promiseArray).then( function(resArray) {
 
-					var data = format(students , resArray);
+					var data = format(params.students , resArray);
 					parentDefer.resolve(data);
 
 					// Function to create an array of student objects with
@@ -42,7 +42,7 @@ angular.module('dataFormatter')
 
 							// Store each metric value in the student object
 							metricValuesArray.forEach( function(metricObj , index) {
-								obj[metrics[index]] = metricObj.data[student];
+								obj[params.metrics[index]] = metricObj.data[student];
 							});
 
 							data.push(obj);
@@ -57,25 +57,27 @@ angular.module('dataFormatter')
 				return parentDefer.promise;
 			},
 
-			groupsCohorts: function(course, groupsCohorts , metrics, periodOne, periodTwo, engagementOptions) {
+			groupsCohorts: function(params) {
 
 				var parentDefer = $q.defer();
 
-				// Format period(s)
-				periodOne = (periodOne) ? formatPeriod(periodOne) : null;
-				periodTwo = (periodTwo) ? formatPeriod(periodTwo) : null;
+				// Format period(s) if applicable
+				params.periodOne = (params.periodOne) ? formatPeriod(params.periodOne) : null;
+				params.periodTwo = (params.periodTwo) ? formatPeriod(params.periodTwo) : null;
 
 				// Resolve a given groupcohort
 				function groupCohortPromise(groupCohort, defer) {
 
+					params.groupCohort = groupCohort;
+
 					var promiseArray = [],
-						data = [];
+							data = [];
 
 					// Create promise for each metric
-					metrics.forEach( function(metric) {
+					params.metrics.forEach( function(metric) {
 
 						metric = metric + 'GroupCohort'; // Make GroupCohort API Call
-						var promise = apiRequest[metric](course, groupCohort, periodOne, periodTwo, engagementOptions);
+						var promise = apiRequest[metric](params);
 						promiseArray.push(promise);
 
 					});
@@ -101,7 +103,7 @@ angular.module('dataFormatter')
 
 								// Store each metric value in the student object
 								for(var i=0; i<metricValuesArray.length; i++) {
-									obj[metrics[i]] = metricValuesArray[i].data[student];
+									obj[params.metrics[i]] = metricValuesArray[i].data[student];
 								}
 
 								data.push(obj);
@@ -116,10 +118,11 @@ angular.module('dataFormatter')
 
 				// Create a promise for each groupcohort
 				var promiseArray = [];
-				groupsCohorts.forEach( function(groupCohort) {
+
+				params.groupsCohorts.forEach( function(groupCohort) {
 					var defer = $q.defer();
 					var promise = defer.promise;
-					groupCohortPromise(groupCohort , defer);
+					groupCohortPromise(groupCohort , defer); // Resolve
 					promiseArray.push(promise);
 				});
 

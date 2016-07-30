@@ -98,8 +98,18 @@ angular.module('tabs')
 					return metric.value;
 				});
 
+				var params = {
+
+					course: $scope.selectedCourse,
+					students: $scope.selectedStudents,
+					metrics: metrics,
+					periodOne: $scope.periodOne,
+					periodTwo: $scope.periodTwo
+
+				};
+
 				// Load data
-				dataFormatter.students($scope.selectedCourse, $scope.selectedStudents , metrics, $scope.periodOne, $scope.periodTwo, null)
+				dataFormatter.students(params)
 				.then( function(res) {
 					$scope.data = res;
 				});

@@ -116,8 +116,18 @@ angular.module('tabs')
 					return metric.value;
 				});
 
+				var params = {
+
+					course: $scope.selectedCourse,
+					groupsCohorts: $scope.selectedGroupsCohorts,
+					metrics: metrics,
+					periodOne: $scope.periodOne,
+					periodTwo: $scope.periodTwo
+
+				};
+				
 				// Load data
-				dataFormatter.groupsCohorts($scope.selectedCourse, $scope.selectedGroupsCohorts, metrics, $scope.periodOne, $scope.periodTwo, null)
+				dataFormatter.groupsCohorts(params)
 				.then( function(res) {
 					$scope.data = res;
 				});

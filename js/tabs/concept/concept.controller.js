@@ -129,14 +129,32 @@ angular.module('tabs')
 			// Call to data formatter
 			if ($scope.selectedStudentsOption == 'students') {
 
-				dataFormatter.students($scope.selectedCourse, $scope.selectedStudents, metrics, null, null, $scope.selectedEngagementOptions)
+				var params = {
+
+					course: $scope.selectedCourse,
+					students: $scope.selectedStudents,
+					metrics: metrics,
+					options: $scope.selectedEngagementOptions
+
+				};
+
+				dataFormatter.students(params)
 				.then( function(res) {
 					$scope.data = res;
 				});
 
 			} else { // groupscohorts
 
-				dataFormatter.groupsCohorts($scope.selectedCourse, $scope.selectedGroupsCohorts, metrics, null, null, $scope.selectedEngagementOptions)
+				var params = {
+
+					course: $scope.selectedCourse,
+					groupsCohorts: $scope.selectedGroupsCohorts,
+					metrics: metrics,
+					options: $scope.selectedEngagementOptions
+
+				};
+
+				dataFormatter.groupsCohorts(params)
 				.then (function(res) {
 					$scope.data = res;
 				});

@@ -83,14 +83,15 @@ angular.module('apiRequest')
         data: {rcourseID:course , learnerID:student}})
     },
 
-    /* --- METRICS (STUDENTS) --- */
-    courseDuration: function(course, students, periodOne, periodTwo) {
+    /* --- METRICS (STUDENTS) ---
+      TODO: abstract duplicated dataObj logic */
+    courseDuration: function(params) {
       
       var dataObj = {};
-      dataObj['rcourseID'] = course;
-      dataObj['learners'] = students;
-      dataObj[periodOne.prefix + periodOne.type] = periodOne.value;
-      dataObj[periodTwo.prefix + periodTwo.type] = periodTwo.value;
+      dataObj['rcourseID'] = params.course;
+      dataObj['learners'] = params.students;
+      dataObj[params.periodOne.prefix + params.periodOne.type] = params.periodOne.value;
+      dataObj[params.periodTwo.prefix + params.periodTwo.type] = params.periodTwo.value;
 
       return $http({method:"POST",
         url: baseURL + "get-students/course-duration",
@@ -98,13 +99,13 @@ angular.module('apiRequest')
       });
     },
 
-    courseLogins: function(course, students, periodOne, periodTwo) {
+    courseLogins: function(params) {
 
       var dataObj = {};
-      dataObj['rcourseID'] = course;
-      dataObj['learners'] = students;
-      dataObj[periodOne.prefix + periodOne.type] = periodOne.value;
-      dataObj[periodTwo.prefix + periodTwo.type] = periodTwo.value;
+      dataObj['rcourseID'] = params.course;
+      dataObj['learners'] = params.students;
+      dataObj[params.periodOne.prefix + params.periodOne.type] = params.periodOne.value;
+      dataObj[params.periodTwo.prefix + params.periodTwo.type] = params.periodTwo.value;
 
       return $http({method:"POST",
         url: baseURL + "get-students/course-logins",
@@ -112,13 +113,13 @@ angular.module('apiRequest')
       });
     },
 
-    courseSessions: function(course, students, periodOne, periodTwo) {
+    courseSessions: function(params) {
 
       var dataObj = {};
-      dataObj['rcourseID'] = course;
-      dataObj['learners'] = students;
-      dataObj[periodOne.prefix + periodOne.type] = periodOne.value;
-      dataObj[periodTwo.prefix + periodTwo.type] = periodTwo.value;
+      dataObj['rcourseID'] = params.course;
+      dataObj['learners'] = params.students;
+      dataObj[params.periodOne.prefix + params.periodOne.type] = params.periodOne.value;
+      dataObj[params.periodTwo.prefix + params.periodTwo.type] = params.periodTwo.value;
 
       return $http({method:"POST",
         url: baseURL + "get-students/course-sessions",
@@ -126,13 +127,13 @@ angular.module('apiRequest')
       });
     },
 
-    courseInteractions: function(course, students, periodOne, periodTwo) {
+    courseInteractions: function(params) {
 
       var dataObj = {};
-      dataObj['rcourseID'] = course;
-      dataObj['learners'] = students;
-      dataObj[periodOne.prefix + periodOne.type] = periodOne.value;
-      dataObj[periodTwo.prefix + periodTwo.type] = periodTwo.value;
+      dataObj['rcourseID'] = params.course;
+      dataObj['learners'] = params.students;
+      dataObj[params.periodOne.prefix + params.periodOne.type] = params.periodOne.value;
+      dataObj[params.periodTwo.prefix + params.periodTwo.type] = params.periodTwo.value;
 
       return $http({method:"POST",
         url: baseURL + "get-students/course-interactions",
@@ -140,13 +141,13 @@ angular.module('apiRequest')
       });
     },
 
-    engagement: function(course, students, periodOne, periodTwo) {
+    engagement: function(params) {
 
       var dataObj = {};
-      dataObj['rcourseID'] = course;
-      dataObj['learners'] = students;
-      dataObj[periodOne.prefix + periodOne.type] = periodOne.value;
-      dataObj[periodTwo.prefix + periodTwo.type] = periodTwo.value;
+      dataObj['rcourseID'] = params.course;
+      dataObj['learners'] = params.students;
+      dataObj[params.periodOne.prefix + params.periodOne.type] = params.periodOne.value;
+      dataObj[params.periodTwo.prefix + params.periodTwo.type] = params.periodTwo.value;
 
       return $http({method:"POST",
         url: baseURL + "calculate-students/individual-engagement",
@@ -155,14 +156,14 @@ angular.module('apiRequest')
     },
 
     /* METRICS (GROUPSCOHORTS) */
-    courseDurationGroupCohort: function(course, groupcohort, periodOne, periodTwo) {
+    courseDurationGroupCohort: function(params) {
 
       var dataObj = {};
-      dataObj['rcourseID'] = course;
-      dataObj['group-cohort'] = groupcohort;
+      dataObj['rcourseID'] = params.course;
+      dataObj['group-cohort'] = params.groupCohort;
       dataObj['anonymized'] = anonymized;
-      dataObj[periodOne.prefix + periodOne.type] = periodOne.value;
-      dataObj[periodTwo.prefix + periodTwo.type] = periodTwo.value;
+      dataObj[params.periodOne.prefix + params.periodOne.type] = params.periodOne.value;
+      dataObj[params.periodTwo.prefix + params.periodTwo.type] = params.periodTwo.value;
 
       return $http({method:"POST",
         url: baseURL + "get-groupcohort/course-duration",
@@ -170,14 +171,14 @@ angular.module('apiRequest')
       });
     },
 
-    courseLoginsGroupCohort: function(course, groupcohort, periodOne, periodTwo) {
+    courseLoginsGroupCohort: function(params) {
 
       var dataObj = {};
-      dataObj['rcourseID'] = course;
-      dataObj['group-cohort'] = groupcohort;
+      dataObj['rcourseID'] = params.course;
+      dataObj['group-cohort'] = params.groupCohort;
       dataObj['anonymized'] = anonymized;
-      dataObj[periodOne.prefix + periodOne.type] = periodOne.value;
-      dataObj[periodTwo.prefix + periodTwo.type] = periodTwo.value;
+      dataObj[params.periodOne.prefix + params.periodOne.type] = params.periodOne.value;
+      dataObj[params.periodTwo.prefix + params.periodTwo.type] = params.periodTwo.value;
 
       return $http({method:"POST",
         url: baseURL + "get-groupcohort/course-logins",
@@ -185,14 +186,14 @@ angular.module('apiRequest')
       });
     },
 
-    courseSessionsGroupCohort: function(course, groupcohort, periodOne, periodTwo) {
+    courseSessionsGroupCohort: function(params) {
 
       var dataObj = {};
-      dataObj['rcourseID'] = course;
-      dataObj['group-cohort'] = groupcohort;
+      dataObj['rcourseID'] = params.course;
+      dataObj['group-cohort'] = params.groupCohort;
       dataObj['anonymized'] = anonymized;
-      dataObj[periodOne.prefix + periodOne.type] = periodOne.value;
-      dataObj[periodTwo.prefix + periodTwo.type] = periodTwo.value;
+      dataObj[params.periodOne.prefix + params.periodOne.type] = params.periodOne.value;
+      dataObj[params.periodTwo.prefix + params.periodTwo.type] = params.periodTwo.value;
 
       return $http({method:"POST",
         url: baseURL + "get-groupcohort/course-sessions",
@@ -200,14 +201,14 @@ angular.module('apiRequest')
       });
     },
 
-    courseInteractionsGroupCohort: function(course, groupcohort, periodOne, periodTwo) {
+    courseInteractionsGroupCohort: function(params) {
 
       var dataObj = {};
-      dataObj['rcourseID'] = course;
-      dataObj['group-cohort'] = groupcohort;
+      dataObj['rcourseID'] = params.course;
+      dataObj['group-cohort'] = params.groupCohort;
       dataObj['anonymized'] = anonymized;
-      dataObj[periodOne.prefix + periodOne.type] = periodOne.value;
-      dataObj[periodTwo.prefix + periodTwo.type] = periodTwo.value;
+      dataObj[params.periodOne.prefix + params.periodOne.type] = params.periodOne.value;
+      dataObj[params.periodTwo.prefix + params.periodTwo.type] = params.periodTwo.value;
 
       return $http({method:"POST",
         url: baseURL + "get-groupcohort/course-interactions",
@@ -215,14 +216,14 @@ angular.module('apiRequest')
       });
     },
 
-    engagementGroupCohort: function(course, groupcohort, periodOne, periodTwo) {
+    engagementGroupCohort: function(params) {
 
       var dataObj = {};
-      dataObj['rcourseID'] = course;
-      dataObj['group-cohort'] = groupcohort;
+      dataObj['rcourseID'] = params.course;
+      dataObj['group-cohort'] = params.groupCohort;
       dataObj['anonymized'] = anonymized;
-      dataObj[periodOne.prefix + periodOne.type] = periodOne.value;
-      dataObj[periodTwo.prefix + periodTwo.type] = periodTwo.value;
+      dataObj[params.periodOne.prefix + params.periodOne.type] = params.periodOne.value;
+      dataObj[params.periodTwo.prefix + params.periodTwo.type] = params.periodTwo.value;
 
       return $http({method:"POST",
         url: baseURL + "calculate-groupcohort/individual-engagement",
@@ -231,12 +232,12 @@ angular.module('apiRequest')
     },
 
     /* METRICS (CONCEPTS) */
-    engagementConcept: function(course, students, periodOne, periodTwo, options) {
+    engagementConcept: function(params) {
 
       var dataObj = {};
-      dataObj['rcourseID'] = course;
-      dataObj['learners'] = students;
-      dataObj['options'] = options;
+      dataObj['rcourseID'] = params.course;
+      dataObj['learners'] = params.students;
+      dataObj['options'] = params.options;
     
       return $http({method: "POST",
         url: baseURL + "calculate-students/specific-individual-engagement",
@@ -244,21 +245,25 @@ angular.module('apiRequest')
       });
     },
 
-    engagementConceptGroupCohort: function(course, groupcohort, periodOne, periodTwo, options) {
+    engagementConceptGroupCohort: function(params) {
 
       var dataObj = {};
-      dataObj['rcourseID'] = course;
-      dataObj['group-cohort'] = groupcohort;
-      dataObj['options'] = options;
+      dataObj['rcourseID'] = params.course;
+      dataObj['group-cohort'] = params.groupcohort;
+      dataObj['options'] = params.options;
       dataObj['anonymized'] = anonymized;
 
       return $http({method: "POST",
         url: baseURL + "calculate-groupcohort/specific-individual-engagement",
         data: dataObj
       });
-    }
+    },
 
-    /* TODO: get-<students/groupcohort>/course-concept-<duration/interactions> */
+    courseDurationConcept: function(params) {
+
+      
+
+    }
 
     /* ADDITIONAL REQUESTS GO HERE */
 
