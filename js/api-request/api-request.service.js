@@ -249,7 +249,7 @@ angular.module('apiRequest')
 
       var dataObj = {};
       dataObj['rcourseID'] = params.course;
-      dataObj['group-cohort'] = params.groupcohort;
+      dataObj['group-cohort'] = params.groupCohort;
       dataObj['options'] = params.options;
       dataObj['anonymized'] = anonymized;
 
@@ -261,11 +261,60 @@ angular.module('apiRequest')
 
     courseDurationConcept: function(params) {
 
-      
+      var dataObj = {};
+      dataObj['rcourseID'] = params.course;
+      dataObj['learners'] = params.students;
+      dataObj['conceptID'] = params.concept;
 
+      return $http({method: "POST",
+        url: baseURL + "get-students/course-concept-duration",
+        data: dataObj
+      });
+    },
+
+    courseDurationConceptGroupCohort: function(params) {
+
+      var dataObj = {};
+      dataObj['rcourseID'] = params.course;
+      dataObj['group-cohort'] = params.groupCohort;
+      dataObj['conceptID'] = params.concept;
+      dataObj['anonymized'] = anonymized;
+
+      return $http({method: "POST",
+        url: baseURL + "get-groupcohort/course-concept-duration",
+        data: dataObj
+      }); 
+    },
+
+    courseInteractionsConcept: function(params) {
+
+      var dataObj = {};
+      dataObj['rcourseID'] = params.course;
+      dataObj['learners'] = params.students;
+      dataObj['conceptID'] = params.concept;
+
+      return $http({method: "POST",
+        url: baseURL + "get-students/course-concept-interactions",
+        data: dataObj
+      });
+
+    },
+
+    courseInteractionsConceptGroupCohort: function(params) {
+
+      var dataObj = {};
+      dataObj['rcourseID'] = params.course;
+      dataObj['group-cohort'] = params.groupCohort;
+      dataObj['conceptID'] = params.concept;
+      dataObj['anonymized'] = anonymized;
+ 
+      return $http({method: "POST",
+        url: baseURL + "get-groupcohort/course-concept-interactions",
+        data: dataObj
+      });
     }
 
-    /* ADDITIONAL REQUESTS GO HERE */
+    /* ADDITIONAL REQUESTS HERE */
 
   }
 

@@ -134,7 +134,8 @@ angular.module('tabs')
 					course: $scope.selectedCourse,
 					students: $scope.selectedStudents,
 					metrics: metrics,
-					options: $scope.selectedEngagementOptions
+					options: $scope.selectedEngagementOptions,
+					concept: $scope.selectedConcept
 
 				};
 
@@ -150,10 +151,11 @@ angular.module('tabs')
 					course: $scope.selectedCourse,
 					groupsCohorts: $scope.selectedGroupsCohorts,
 					metrics: metrics,
-					options: $scope.selectedEngagementOptions
+					options: $scope.selectedEngagementOptions,
+					concept: $scope.selectedConcept
 
 				};
-
+				
 				dataFormatter.groupsCohorts(params)
 				.then (function(res) {
 					$scope.data = res;

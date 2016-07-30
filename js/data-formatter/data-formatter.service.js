@@ -76,10 +76,9 @@ angular.module('dataFormatter')
 					// Create promise for each metric
 					params.metrics.forEach( function(metric) {
 
-						metric = metric + 'GroupCohort'; // Make GroupCohort API Call
+						metric = metric + 'GroupCohort'; // Make GroupCohort API calls
 						var promise = apiRequest[metric](params);
 						promiseArray.push(promise);
-
 					});
 
 					// Resolve promises in parallel
