@@ -142,7 +142,7 @@ angular.module('charts')
 						tooltip//.transition()
 							.style("opacity", 0.9);
 						tooltip
-							.style("height", 50 + "px") // Adjust for additional information
+							.style("height", 70 + "px") // Adjust for additional information
 							.html( function() {
 
 								var x = student[scope.xMetric] > 1000 ? d3.format(",.0f")(student[scope.xMetric]) : d3.format(".3n")(student[scope.xMetric]);
