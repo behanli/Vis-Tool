@@ -3,6 +3,8 @@ A dynamic tool for the visualisation of online course data. The tool makes use o
 
 The tool operates on a student, group and course-concept level with an associated tab for each view. The user of the tool can filter over a number of variables before producing the required visualisation. Similarly, the data, of which a given visualisation is comprised, is also presented. Full export options for both the visualisations and data are also available.
 
+----
+
 ## Installation Instructions
 To run the tool, clone this repository into the directory of your local server. Within your browser, navigate to the following url: *localhost/Vis-Tool/*. By default, the tool will open on the students tab.
 
