@@ -15,3 +15,25 @@ The following is a high-level overview of the tool grouped by module (sub-direct
 This is an angular service that wraps the API calls made to back-end mySQL database. 
 
 ### charts
+
+### colour-generator
+
+### constant
+
+### csv-modal
+
+### data-formatter
+
+### display-data
+
+### export-chart-modal
+
+### json-modal
+
+### navigation
+
+### period-selector
+
+### routing
+
+### tabs
