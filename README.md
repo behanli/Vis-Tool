@@ -42,7 +42,7 @@ A configuration file that hold some constants used throughout the tool.
 A directive used to display the data array in a *csv* format with the ability to export the data as a csv file.
 
 ### data-formatter
-An intermediary service that formats the data as returned by the API requests into a usable format for the chart directives. This service contains two functions: **students**(*params*) and **groupscohorts**(*params*).
+An intermediary service that formats the data as returned by the API requests into a usable format for the chart directives. This service contains two functions: **students**(*params*) and **groupsCohorts**(*params*).
 
 The *params* parameter is an object that is passed in via the filter panel on each tab. It contains variables such as the selected course, students / groups, selected metrics and the period of interest.
 
