@@ -13,6 +13,12 @@ To run the tool, clone this repository into the directory of your local server. 
 ## Developer Instructions
 The following is a high-level overview of the tool grouped by module (sub-directories within *js*). Particular emphasis is given to how the tool operates *i.e.* how the tool retrieves the relevant data, formats the data and plots the associated visualisation.
 
+### index.html
+The main *html* file with the application. The relevant libraries used by the tool are loaded here via *CDNs*. Similarly, the application specific *js* files are loaded here. This file does not contain any inner body markup with all content injected via routing. The main application module, *app.js*, is inserted into this file via the standard angular *ng-app* directive.
+
+### app.js
+The central module upon which each of the sub modules (located within the *js* directory) are injected.
+
 ### api-request
 A service that wraps the API calls made to the back-end database. 
 
